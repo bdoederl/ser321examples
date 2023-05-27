@@ -247,7 +247,7 @@ class WebServer {
 
             //PARSE AREA
             JSONObject obj = new JSONObject(json);
-            builder.append(obj.get("id"));
+            builder.append(obj.getString("id"));
           }
           catch (Exception e) {
             builder.append("HTTP/1.1 400 Bad Request\n");
