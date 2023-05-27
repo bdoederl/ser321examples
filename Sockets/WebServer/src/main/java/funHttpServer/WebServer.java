@@ -237,25 +237,9 @@ class WebServer {
           try {
             Map<String, String> query_pairs = new LinkedHashMap<String, String>();
             query_pairs = splitQuery(request.replace("github?", ""));
-            try {
-              String json = fetchURL("https://api.github.com/" + query_pairs.get("query"));
-              JSONObject jobj = new JSONObject(json);
-              System.out.print(json);
-              /*
-              for (int i = 0; i < Object.keys(jobj).length; ++i){
-                System.out.println(JSON.parse(jobj).data[i].id);
-                System.out.println(JSON.parse(jobj).data[i].full_name);
-                System.out.println(JSON.parse(jobj).data[i].full_name);
-                System.out.println(JSON.parse(jobj).data[i].owner.login);
-              }
-               */
-            }
-            catch (Exception e) {
-              builder.append("HTTP/1.1 500 Server Error\n");
-              builder.append("Content-Type: text/html; charset=utf-8\n");
-              builder.append("\n");
-              builder.append("Cannot access GitHub to process request");
-            }
+
+            String json = fetchURL("https://api.github.com/" + query_pairs.get("query"));
+            System.out.print(json);
 
             builder.append("HTTP/1.1 200 OK\n");
             builder.append("Content-Type: text/html; charset=utf-8\n");
