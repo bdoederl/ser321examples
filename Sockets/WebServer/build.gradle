@@ -2,7 +2,7 @@
 apply plugin: 'application'
 
 repositories {
-	mavenentral()
+	mavenCentral()
 }
 dependencies {
 	implementation 'org.json:json:20171018'
