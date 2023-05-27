@@ -216,7 +216,7 @@ class WebServer {
             builder.append("\n");
             builder.append("Result is: " + result);
           }
-          catch {
+          catch (Exception e) {
             // TODO: Include error handling here with a correct error code and
             // a response that makes sense
             builder.append("HTTP/1.1 400 Bad Request\n");
