@@ -1,6 +1,9 @@
 // set as java application
 apply plugin: 'application'
 
+repositories {
+	mavenentral()
+}
 dependencies {
 	implementation 'org.json:json:20171018'
 }
