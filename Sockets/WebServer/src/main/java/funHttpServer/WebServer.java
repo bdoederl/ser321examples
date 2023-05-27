@@ -240,12 +240,15 @@ class WebServer {
             try {
               String json = fetchURL("https://api.github.com/" + query_pairs.get("query"));
               JSONObject jobj = new JSONObject(json);
+              System.out.print(json);
+              /*
               for (int i = 0; i < Object.keys(jobj).length; ++i){
                 System.out.println(JSON.parse(jobj).data[i].id);
                 System.out.println(JSON.parse(jobj).data[i].full_name);
                 System.out.println(JSON.parse(jobj).data[i].full_name);
                 System.out.println(JSON.parse(jobj).data[i].owner.login);
               }
+               */
             }
             catch (Exception e) {
               builder.append("HTTP/1.1 500 Server Error\n");
