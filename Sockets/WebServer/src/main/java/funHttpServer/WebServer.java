@@ -25,6 +25,7 @@ import java.util.Random;
 import java.util.Map;
 import java.util.LinkedHashMap;
 import java.nio.charset.Charset;
+import org.json.*;
 
 class WebServer {
   public static void main(String args[]) {
@@ -233,16 +234,39 @@ class WebServer {
           //     then drill down to what you care about
           // "Owner's repo is named RepoName. Example: find RepoName's contributors" translates to
           //     "/repos/OWNERNAME/REPONAME/contributors"
+          try {
+            Map<String, String> query_pairs = new LinkedHashMap<String, String>();
+            query_pairs = splitQuery(request.replace("github?", ""));
+            try {
+              String json = fetchURL("https://api.github.com/" + query_pairs.get("query"));
+              JSONObject jobj = new JSONObject(json);
+              for (int i = 0; i < Object.keys(jobj).length; ++i){
+                System.out.println(JSON.parse(jobj).data[i].id);
+                System.out.println(JSON.parse(jobj).data[i].full_name);
+                System.out.println(JSON.parse(jobj).data[i].full_name);
+                System.out.println(JSON.parse(jobj).data[i].owner.login);
+              }
+            }
+            catch (Exception e) {
+              builder.append("HTTP/1.1 500 Server Error\n");
+              builder.append("Content-Type: text/html; charset=utf-8\n");
+              builder.append("\n");
+              builder.append("Cannot access GitHub to process request");
+              break;
+            }
+            System.out.println(json);
 
-          Map<String, String> query_pairs = new LinkedHashMap<String, String>();
-          query_pairs = splitQuery(request.replace("github?", ""));
-          String json = fetchURL("https://api.github.com/" + query_pairs.get("query"));
-          System.out.println(json);
+            builder.append("HTTP/1.1 200 OK\n");
+            builder.append("Content-Type: text/html; charset=utf-8\n");
+            builder.append("\n");
+          }
+          catch (Exception e) {
+            builder.append("HTTP/1.1 400 Bad Request\n");
+            builder.append("Content-Type: text/html; charset=utf-8\n");
+            builder.append("\n");
+            builder.append("Correct syntax : /github?query=users/{user}/repos");
+          }
 
-          builder.append("HTTP/1.1 200 OK\n");
-          builder.append("Content-Type: text/html; charset=utf-8\n");
-          builder.append("\n");
-          builder.append("Check the todos mentioned in the Java source file");
           // TODO: Parse the JSON returned by your fetch and create an appropriate
           // response based on what the assignment document asks for
 
