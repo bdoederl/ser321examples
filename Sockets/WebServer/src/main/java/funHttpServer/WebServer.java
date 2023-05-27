@@ -255,6 +255,9 @@ class WebServer {
           // TODO: Parse the JSON returned by your fetch and create an appropriate
           // response based on what the assignment document asks for
 
+          JSONObject obj = new JSONObject(json);
+          builder.append(obj.get(id));
+
         } else {
           // if the request is not recognized at all
 
