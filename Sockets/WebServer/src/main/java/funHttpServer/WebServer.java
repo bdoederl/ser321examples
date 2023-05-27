@@ -256,7 +256,7 @@ class WebServer {
           // response based on what the assignment document asks for
 
           JSONObject obj = new JSONObject(json);
-          builder.append(obj.get(id));
+          builder.append(obj.get("id"));
 
         } else {
           // if the request is not recognized at all
