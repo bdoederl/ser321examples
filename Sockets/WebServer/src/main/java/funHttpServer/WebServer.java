@@ -202,9 +202,20 @@ class WebServer {
           query_pairs = splitQuery(request.replace("multiply?", ""));
 
           // extract required fields from parameters
-          Integer num1 = Integer.parseInt(query_pairs.get("num1"));
-          Integer num2 = Integer.parseInt(query_pairs.get("num2"));
-
+          if (query_pairs.get("num1") != null){
+            Integer num1 = Integer.parseInt(query_pairs.get("num1"));
+          }
+          //default value
+          else {
+            Integer num1 = 1;
+          }
+          if (query_pairs.get("num2") != null){
+            Integer num2 = Integer.parseInt(query_pairs.get("num2"));
+          }
+          else {
+            Integer num2 = 2;
+          }
+          
           // do math
           Integer result = num1 * num2;
 
