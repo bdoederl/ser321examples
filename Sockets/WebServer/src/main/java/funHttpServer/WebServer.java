@@ -244,6 +244,10 @@ class WebServer {
             builder.append("HTTP/1.1 200 OK\n");
             builder.append("Content-Type: text/html; charset=utf-8\n");
             builder.append("\n");
+
+            //PARSE AREA
+            JSONObject obj = new JSONObject(json);
+            builder.append(obj.get("id"));
           }
           catch (Exception e) {
             builder.append("HTTP/1.1 400 Bad Request\n");
@@ -254,9 +258,6 @@ class WebServer {
 
           // TODO: Parse the JSON returned by your fetch and create an appropriate
           // response based on what the assignment document asks for
-
-          JSONObject obj = new JSONObject(json);
-          builder.append(obj.get("id"));
 
         } else {
           // if the request is not recognized at all
