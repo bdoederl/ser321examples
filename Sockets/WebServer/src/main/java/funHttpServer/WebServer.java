@@ -251,9 +251,12 @@ class WebServer {
             for (int i = 0; i < jsonArr.length(); ++i){
               JSONObject repo = new JSONObject(i);
 
-              builder.append("id").append(repo.getString("id"));
-              builder.append("Name").append(repo.getString("full_name"));
-              builder.append("Owner").append(repo.getJSONObject("owner").getString("login"));
+              builder.append("id");
+              int id = repo.getInt("id");
+              builder.append(int);
+              
+              //builder.append("Name").append(repo.getString("full_name"));
+              //builder.append("Owner").append(repo.getJSONObject("owner").getString("login"));
             }
           }
           catch (Exception e) {
