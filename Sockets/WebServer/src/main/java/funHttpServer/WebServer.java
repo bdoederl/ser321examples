@@ -234,7 +234,7 @@ class WebServer {
             String name1 = "heads";
             String name2 = "tails";
 
-            if (query_pairs.containsKey(name1)){
+            if (query_pairs.containsKey("name1")){
               name1 = query_pairs.get("name1");
             }
             if (query_pairs.containsKey("name2")){
