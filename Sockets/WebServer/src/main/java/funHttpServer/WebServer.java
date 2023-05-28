@@ -253,12 +253,9 @@ class WebServer {
           for (int i = 0; i < jsonArr.length(); ++i){
             JSONObject repo = jsonArr.getJSONObject(i);
 
-            builder.append("ID : ").append(repo.getInt("id")).append(System.getProperty("Line.Seperator"));
-
-
-              
-            //builder.append("Name").append(repo.getString("full_name"));
-            //builder.append("Owner").append(repo.getJSONObject("owner").getString("login"));
+            builder.append("ID : ").append(repo.getInt("id"));
+            builder.append("Name : ").append(repo.getString("full_name"));
+            builder.append("Owner").append(repo.getJSONObject("owner").getString("login"));
           }
 
           /*
