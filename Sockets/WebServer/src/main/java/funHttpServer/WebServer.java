@@ -231,8 +231,8 @@ class WebServer {
           try {
             Map<String, String> query_pairs = new LinkedHashMap<String, String>();
             query_pairs = splitQuery(request.replace("coinflip?", ""));
-            String name1 = heads;
-            String name2 = tails;
+            String name1 = "heads";
+            String name2 = "tails";
 
             if (query_pairs.containsKey(name1)){
               name1 = query_pairs.get("name1");
