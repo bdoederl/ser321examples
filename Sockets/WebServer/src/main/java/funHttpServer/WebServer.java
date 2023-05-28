@@ -258,6 +258,41 @@ class WebServer {
             builder.append("\n");
             builder.append("Correct syntax : /coinflip?name1={name1}&name2={name2}");
           }
+        } else if (request.contains("numlist?")) {
+          try {
+            Map<String, String> query_pairs = new LinkedHashMap<String, String>();
+            query_pairs = splitQuery(request.replace("numlist?", ""));
+            int num1 = 1;
+            int num2 = 10;
+            if (query_pairs.containsKey("num1")){
+              num1 = Integer.parseInt(query_pairs.get("num1"));
+            }
+            if (query_pairs.containsKey("num2")){
+              num2 = Integer.parseInt(query_pairs.get("num2"));
+            }
+            builder.append("HTTP/1.1 200 OK\n");
+            builder.append("Content-Type: text/html; charset=utf-8\n");
+            builder.append("\n");
+            if (num1 == num2){
+              builder.append(num1);
+            }
+            else if (num1 > num2){
+              for (int i = num2; i <= num1; ++i){
+                builder.append(" ").append(i);
+              }
+            }
+            else if (num2 > num1){
+              for (int i = num1; i <= num2; ++i){
+                builder.append(" ").append(i);
+              }
+            }
+          }
+          catch {
+            builder.append("HTTP/1.1 400 Bad Request\n");
+            builder.append("Content-Type: text/html; charset=utf-8\n");
+            builder.append("\n");
+            builder.append("Correct syntax : /numlist?num1={num1}&num2={num2}");
+          }
         } else if (request.contains("github?")) {
           // pulls the query from the request and runs it with GitHub's REST API
           // check out https://docs.github.com/rest/reference/
