@@ -246,8 +246,15 @@ class WebServer {
             builder.append("\n");
 
             //PARSE AREA
-            JSONObject obj = new JSONObject(json);
-            builder.append(obj.getString("id"));
+            JSONArray jsonArr = new JSONArray(json);
+
+            for (int i = 0; i < jsonArr.length(); ++i){
+              JSONObject repo = new JSONObject([i]);
+
+              builder.append("id").append(repo.getString("id"));
+              builder.append("Name").append(repo.getString("full_name"));
+              builder.append("Owner").append(repo.getJSONObject("owner").getString("login"));
+            }
           }
           catch (Exception e) {
             builder.append("HTTP/1.1 400 Bad Request\n");
