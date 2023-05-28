@@ -249,7 +249,7 @@ class WebServer {
             JSONArray jsonArr = new JSONArray(json);
 
             for (int i = 0; i < jsonArr.length(); ++i){
-              JSONObject repo = new JSONObject([i]);
+              JSONObject repo = new JSONObject(i);
 
               builder.append("id").append(repo.getString("id"));
               builder.append("Name").append(repo.getString("full_name"));
