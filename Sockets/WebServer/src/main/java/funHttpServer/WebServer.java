@@ -239,7 +239,7 @@ class WebServer {
             query_pairs = splitQuery(request.replace("github?", ""));
 
             String json = fetchURL("https://api.github.com/" + query_pairs.get("query"));
-            System.out.print(json);
+            //System.out.print(json);
 
             builder.append("HTTP/1.1 200 OK\n");
             builder.append("Content-Type: text/html; charset=utf-8\n");
@@ -257,10 +257,12 @@ class WebServer {
             }
           }
           catch (Exception e) {
+          /*
             builder.append("HTTP/1.1 400 Bad Request\n");
             builder.append("Content-Type: text/html; charset=utf-8\n");
             builder.append("\n");
             builder.append("Correct syntax : /github?query=users/{user}/repos");
+            */
           }
 
           // TODO: Parse the JSON returned by your fetch and create an appropriate
