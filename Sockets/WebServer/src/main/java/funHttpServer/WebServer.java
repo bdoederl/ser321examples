@@ -245,7 +245,7 @@ class WebServer {
             builder.append("\n");
 
             //flip coin
-            if (Math.random()*10 % 2 == 0){
+            if (Math.random()*100 % 2 == 0){
               builder.append(name1);
             }
             else {
