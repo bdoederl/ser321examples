@@ -253,15 +253,8 @@ class WebServer {
           for (int i = 0; i < jsonArr.length(); ++i){
             JSONObject repo = jsonArr.getJSONObject(i);
 
-            builder.append("id");
-              
-            System.out.print("id: ");
+            builder.append("ID : ").append(repo.getInt("id")).append("\n");
 
-            int id = repo.getInt("id");
-
-            System.out.println(id);
-              
-            builder.append(id);
 
               
             //builder.append("Name").append(repo.getString("full_name"));
