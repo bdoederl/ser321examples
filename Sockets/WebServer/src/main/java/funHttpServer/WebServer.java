@@ -252,10 +252,15 @@ class WebServer {
               JSONObject repo = new JSONObject(i);
 
               builder.append("id");
-              int id = repo.getInt("id");
-              builder.append(id);
               
-              System.out.print("id:" + id);
+              System.out.print("id: ");
+              
+              int id = repo.getInt("id");
+              
+              System.out.println(id);
+              
+              builder.append(id);
+
               
               //builder.append("Name").append(repo.getString("full_name"));
               //builder.append("Owner").append(repo.getJSONObject("owner").getString("login"));
