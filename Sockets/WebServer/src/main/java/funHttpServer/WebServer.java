@@ -237,34 +237,45 @@ class WebServer {
           // "Owner's repo is named RepoName. Example: find RepoName's contributors" translates to
           //     "/repos/OWNERNAME/REPONAME/contributors"
 
-          Map<String, String> query_pairs = new LinkedHashMap<String, String>();
-          query_pairs = splitQuery(request.replace("github?", ""));
+          try {
+            Map<String, String> query_pairs = new LinkedHashMap<String, String>();
+            query_pairs = splitQuery(request.replace("github?", ""));
 
-          String json = fetchURL("https://api.github.com/" + query_pairs.get("query"));
-          //System.out.print(json);
+            String json = fetchURL("https://api.github.com/" + query_pairs.get("query"));
+            //System.out.print(json);
 
-          builder.append("HTTP/1.1 200 OK\n");
-          builder.append("Content-Type: text/html; charset=utf-8\n");
-          builder.append("\n");
+            try {
+              //PARSE AREA
+              JSONArray jsonArr = new JSONArray(json);
 
-          //PARSE AREA
-          JSONArray jsonArr = new JSONArray(json);
+              builder.append("HTTP/1.1 200 OK\n");
+              builder.append("Content-Type: text/html; charset=utf-8\n");
+              builder.append("\n");
 
-          for (int i = 0; i < jsonArr.length(); ++i){
-            JSONObject repo = jsonArr.getJSONObject(i);
+              for (int i = 0; i < jsonArr.length(); ++i) {
+                JSONObject repo = jsonArr.getJSONObject(i);
 
-            builder.append("ID : ").append(repo.getInt("id"));
-            builder.append("Name : ").append(repo.getString("full_name"));
-            builder.append("Owner").append(repo.getJSONObject("owner").getString("login"));
+                builder.append(" ID : ").append(repo.getInt("id"));
+                builder.append("\n");
+                builder.append(" Name : ").append(repo.getString("full_name"));
+                builder.append("\n");
+                builder.append(" Owner").append(repo.getJSONObject("owner").getString("login"));
+                builder.append("\n");
+              }
+            }
+            catch {
+              builder.append("HTTP/1.1 500 JSON ERROR\n");
+              builder.append("Content-Type: text/html; charset=utf-8\n");
+              builder.append("\n");
+              builder.append("Correct syntax : /github?query=users/{user}/repos");
+            }
           }
-
-          /*
+          catch {
             builder.append("HTTP/1.1 400 Bad Request\n");
             builder.append("Content-Type: text/html; charset=utf-8\n");
             builder.append("\n");
             builder.append("Correct syntax : /github?query=users/{user}/repos");
-            */
-
+          }
 
           // TODO: Parse the JSON returned by your fetch and create an appropriate
           // response based on what the assignment document asks for
