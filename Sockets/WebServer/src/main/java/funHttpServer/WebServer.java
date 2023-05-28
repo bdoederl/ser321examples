@@ -227,7 +227,37 @@ class WebServer {
             builder.append("\n");
             builder.append("Correct syntax : /multiply?num1=x&num2=y");
           }
+        } else if (request.contains(("coinflip?"))) {
+          try {
+            Map<String, String> query_pairs = new LinkedHashMap<String, String>();
+            query_pairs = splitQuery(request.replace("coinflip?", ""));
+            String name1 = heads;
+            String name2 = tails;
 
+            if (query_pairs.containsKey(name1)){
+              name1 = query_pairs.get("name1");
+            }
+            if (query_pairs.containsKey("name2")){
+              name2 = query_pairs.get("name2");
+            }
+            builder.append("HTTP/1.1 200 OK\n");
+            builder.append("Content-Type: text/html; charset=utf-8\n");
+            builder.append("\n");
+
+            //flip coin
+            if (Math.random()*10 % 2 == 0){
+              builder.append(name1);
+            }
+            else {
+              builder.append(name2);
+            }
+          }
+          catch (Exception e) {
+            builder.append("HTTP/1.1 400 Bad Request\n");
+            builder.append("Content-Type: text/html; charset=utf-8\n");
+            builder.append("\n");
+            builder.append("Correct syntax : /coinflip?name1={name1}&name2={name2}");
+          }
         } else if (request.contains("github?")) {
           // pulls the query from the request and runs it with GitHub's REST API
           // check out https://docs.github.com/rest/reference/
@@ -259,7 +289,7 @@ class WebServer {
                 builder.append("\n");
                 builder.append(" Name : ").append(repo.getString("full_name"));
                 builder.append("\n");
-                builder.append(" Owner").append(repo.getJSONObject("owner").getString("login"));
+                builder.append(" Owner : ").append(repo.getJSONObject("owner").getString("login"));
                 builder.append("\n");
               }
             }
