@@ -256,12 +256,9 @@ class WebServer {
               builder.append("id");
               
               System.out.print("id: ");
-              try {
-                int id = repo.getInt("id");
-              }
-              catch (Exception e) {
-                System.out.print("ID ERROR\n");
-              }
+
+              int id = repo.getInt("id");
+
               System.out.println(id);
               
               builder.append(id);
@@ -271,7 +268,7 @@ class WebServer {
               //builder.append("Owner").append(repo.getJSONObject("owner").getString("login"));
             }
           }
-          catch (Exception e) {
+          catch (IOException e) {
           /*
             builder.append("HTTP/1.1 400 Bad Request\n");
             builder.append("Content-Type: text/html; charset=utf-8\n");
