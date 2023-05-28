@@ -25,6 +25,8 @@ import java.util.Random;
 import java.util.Map;
 import java.util.LinkedHashMap;
 import java.nio.charset.Charset;
+
+import org.graalvm.compiler.core.CompilationWrapper;
 import org.json.*;
 
 class WebServer {
@@ -254,9 +256,12 @@ class WebServer {
               builder.append("id");
               
               System.out.print("id: ");
-              
-              int id = repo.getInt("id");
-              
+              try {
+                int id = repo.getInt("id");
+              }
+              catch (Exception e) {
+                System.out.print("ID ERROR\n");
+              }
               System.out.println(id);
               
               builder.append(id);
