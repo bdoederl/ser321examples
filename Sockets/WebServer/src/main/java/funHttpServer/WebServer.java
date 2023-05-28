@@ -253,7 +253,7 @@ class WebServer {
           for (int i = 0; i < jsonArr.length(); ++i){
             JSONObject repo = jsonArr.getJSONObject(i);
 
-            builder.append("ID : ").append(repo.getInt("id")).append("\n");
+            builder.append("ID : ").append(repo.getInt("id")).append(System.getProperty("Line.Seperator"));
 
 
               
